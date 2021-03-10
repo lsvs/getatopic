@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+    <title>Questions in English for discussion</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png" />
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            color: #111;
+            line-height: 1.2;
+            font-family: sans-serif;
+        }
+
+        .content {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin: 0 15px;
+        }
+
+        .question {
+            width: 700px;
+            font-size: 36px;
+            font-family: serif;
+            max-width: 90%;
+            min-height: 88px;
+        }
+
+        .number {
+            color: #999;
+            margin-bottom: 20px;
+        }
+
+        .buttons {
+            margin-top: 40px;
+            user-select: none;
+        }
+
+        button {
+            display: inline-block;
+            margin: 0 5px;
+            font-size: 16px;
+            padding: 0 15px;
+            height: 40px;
+            vertical-align: top;
+            cursor: pointer;
+            position: relative;
+            -webkit-appearance: none;
+            border-radius: 3px;
+            background: #eee;
+            border: 1px solid rgb(133, 133, 133);
+            box-sizing: border-box;
+            transition: all 0.1 ease;
+            color: #111;
+        }
+
+        button:hover {
+            background: #f7f5f5;
+        }
+
+        button:active {
+            top: 1px;
+        }
+
+        @media (max-width: 767px) {
+            button {
+                font-size: 14px;
+                padding: 0 10px;
+            }
+
+            .question {
+                font-size: 24px;
+                min-height: 56px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="content">
+        <div class="number"><span class="js-current">1</span> / <span class="js-count"></span></div>
+        <div class="question js-question">How are you doing?</div>
+
+        <div class="buttons">
+            <button class="js-prev">Prev</button>
+            <button class="js-random">Random</button>
+            <button class="js-next">Next</button>
+        </div>
+    </div>
+
+    <script>
+        var question = document.querySelector('.js-question');
+        var activeIndex = 0;
+        var list = [
+            "How are you doing?",
+            "How do you usually feel on your birthday?",
+            "What’s the best age to be?",
+            "Have you ever had to prove your age?",
+            "Is there a generation gap between you and your parents?",
+            "What’s the best age for leaving parents’ home?",
+            "Are young women usually more mature than young men?",
+            "Do men remain attractive longer than women?",
+            "Is love between people of different generations possible?",
+            "What age limits should be changed?",
+            "What annoying things do people younger or older than you do?",
+            "Have you ever lied about your age?",
+            "Why does getting older usually depress people?",
+            "Is friendship between people of different generations possible?",
+            "What things can old people teach young ones?",
+            "What’s the best age for retirement?",
+            "Should men retire older than women?",
+            "Should old people be forced to retire?",
+            "What problems can ‘ageing population’ cause?",
+            "What kind of buildings do you like?",
+            "What kind of buildings don’t you like?",
+            "Do you prefer old architecture or modern one?",
+            "Can you describe the biggest building you’ve ever seen?",
+            "Can you describe the oldest building you’ve ever seen?",
+            "Can you describe the most beautiful building you’ve ever seen?",
+            "Can you describe the most unusual building you’ve ever seen?",
+            "What city impressed you most of all with its architecture?",
+            "Which period of history has the best architecture?",
+            "Why have ancient buildings stood for thousands of years while modern ones have not?",
+            "Why is it necessary to protect old buildings?",
+            "What role does architecture play in modern society?",
+            "What would you like to change about buildings in your town?",
+            "What can your town’s authorities do to improve its architecture?",
+            "What’s more important: building appearance or comfort for people?",
+            "How much does architecture affect a person’s mind?",
+            "What changes of architecture took place in the past 20 years?",
+            "What will architecture be like in 20 years from now?",
+            "Who is the most beautiful person in the world?",
+            "Is beauty the same for every person?",
+            "Can you name some celebrities who are considered to be beautiful, but you do not think so?",
+            "Who decides what is beautiful?",
+            "Is it possible to measure beauty?",
+            "What do you think about beauty pageants?",
+            "Do models portray an unrealistic image of beauty?",
+            "How much does advertising make us to think what is beautiful?",
+            "Do you believe cosmetics companies’ advertisements?",
+            "Do people spend too much time and money on beauty?",
+            "What kind of people worries about their beauty more than others?",
+            "What do you think of plastic surgery?",
+            "Does plastic surgery always make people look better?",
+            "How much is beauty important for success in life?",
+            "What are the advantages of being beautiful?",
+            "What are the disadvantages of being beautiful?",
+            "Which is more important: inner or outer beauty?",
+            "How would the world be different if we never consider beauty?",
+            "What is a conflict?",
+            "Can you remember your first conflict?",
+            "What kind of conflicts can take place at school?",
+            "What kind of conflicts can happen at work?",
+            "What kind of conflicts can occur in a family?",
+            "What kind of conflicts can take place between neighbours?",
+            "What kind of conflicts can happen between countries?",
+            "Are conflicts inevitable?",
+            "What are the advantages of a conflict?",
+            "What are the disadvantages of a conflict?",
+            "Why do some people confront more than others?",
+            "Why do some people create conflicts?",
+            "Do you usually try to avoid conflicts?",
+            "Can you tell about your last conflict?",
+            "What are the constructive ways to solve a conflict?",
+            "What are the deconstructive ways to solve a conflict?",
+            "How do you feel about involving third-party mediation?",
+            "What would life be like without conflicts?",
+            "How much do you worry about the environment?",
+            "How has the environment changed since your childhood?",
+            "Are you interested in reading articles or watching TV programmes about environmental problems?",
+            "What are the main environmental problems in your country?",
+            "How do you feel about recycling?",
+            "Which kind of energy do you support?",
+            "What are the biggest environmental problems in the world?",
+            "Are the recent natural disasters the result of human influence on the environment?",
+            "Do you see any changes in the weather or climate of your place?",
+            "What are factors that have contributed to global warming?",
+            "What can governments do to save our environment?",
+            "How can we protect the environment and at the same time improve people’s standard of living?",
+            "What can individuals do to help the environment?",
+            "Have you ever done anything to help the environment?",
+            "What do you think about environmental groups like Greenpeace?",
+            "What can be done to increase the awareness about environmental problems?",
+            "Is the planet being gradually damaged?",
+            "How will the world look like in 100 years?",
+            "How conscious are you about your health?",
+            "What things might damage your health?",
+            "Do you fell you should give up something to protect your health?",
+            "What do you do to stay healthy?",
+            "Do you ever read articles or watch TV programmes about health?",
+            "Do you usually take medicine when you are sick?",
+            "Do you usually go to a doctor when you get a cold?",
+            "How often do you have a health check?",
+            "What are your experiences of hospitals?",
+            "Have you ever been to a hospital in another country?",
+            "How could hospitals be made better places to visit and stay in?",
+            "Which is better: private and public health care?",
+            "What do you think about alternative medicine?",
+            "Who is more responsible for your health: you or the government?",
+            "Is the health care in your country getting better or worse?",
+            "What are the health care problems in your country?",
+            "Are people today healthier or unhealthier than 50 years ago?",
+            "What health problems can the mankind face in the future?",
+            "What laws in your country do you like?",
+            "What laws in your country don’t you like?",
+            "Is anything that is not prohibited by law allowed?",
+            "Is it OK sometimes to break the law?",
+            "Have you ever broken the law?",
+            "Have you ever got into trouble for breaking the law?",
+            "Have you ever used a lawyer?",
+            "Have you ever been in a court?",
+            "What should be done to improve the courts?",
+            "Are there different laws for the rich and the poor?",
+            "Would you like to be a lawmaker?",
+            "What laws would you introduce?",
+            "What laws would you take from other countries?",
+            "What laws would you never take from other countries?",
+            "What’s the craziest law you have ever heard about?",
+            "How do you feel about death penalty?",
+            "How much are you interested in politics?",
+            "Can you tell some recent political news?",
+            "How often do you read articles or watch TV programmes on political issues?",
+            "Do you like talking about politics?",
+            "What are the main political problems in your country?",
+            "What do you think about your country’s political system?",
+            "What do you think about your country’s politicians?",
+            "What qualities make a good political leader?",
+            "Did you vote in the last election?",
+            "How do you decide who or what to vote for?",
+            "How have your political views changed during your lifetime?",
+            "How is it possible to get more people to vote?",
+            "How do you feel about stars who run for a position in politics?",
+            "Would you like to work in politics?",
+            "If you were a politician, what problems would you focus on?",
+            "What are the main political issues in the world?",
+            "What can cause a war?",
+            "What would the world be like without politics?",
+            "Did you enjoy going to school?",
+            "Were you a good or a bad pupil?",
+            "What were your favourite subjects?",
+            "What were your favourite teachers?",
+            "What did you use to do at break time?",
+            "Was there any bullying at your school?",
+            "Did you ever get in trouble at school?",
+            "What was the most useful thing you learnt at school?",
+            "How have schools changed since your childhood?",
+            "How old should children be when they start and finish school?",
+            "Should school children wear uniform?",
+            "Should religion be taught at school?",
+            "Should sex be taught at school?",
+            "What should children be taught at school to be prepared for ‘real world’?",
+            "What do you think about private education?",
+            "What do you think about educating boys and girls in separate schools?",
+            "What should be done to improve the quality of education in schools?",
+            "What will schools be like in 20 years?",
+            "What is your favourite sport?",
+            "What sport do you hate?",
+            "Are you mostly a sport watcher or doer?",
+            "Should everyone practice sport?",
+            "Who’s your favourite athlete?",
+            "What qualities must a professional sportsperson have?",
+            "Should children be trained hard?",
+            "What makes a good trainer?",
+            "Do you know all the rules of your favourite sport?",
+            "Do you prefer watching sports live or on TV?",
+            "Do you prefer watching sports alone or with somebody?",
+            "What do you think about sports bars?",
+            "How do you feel about sports fans?",
+            "What do you think about extreme sports?",
+            "How do you feel about gambling on sports events?",
+            "What are the advantages for a country to hold sports competitions?",
+            "What are the disadvantages for a country to hold sports competitions?",
+            "What would life be like without sport?",
+            "Are you stressed at the moment?",
+            "Is speaking English stressful for you?",
+            "How often do you get stressed?",
+            "Do you get stressed easily?",
+            "How do you feel that you are suffering from stress?",
+            "Does stress make it hard for you to think or eat?",
+            "How do you interact with others when you are under a lot of stress?",
+            "What situations stress you most of all?",
+            "What is the most stressful experience you have ever had?",
+            "What is the most stressful time of your life?",
+            "What do you do when you have stress?",
+            "Do you prefer to relax or be active when you are stressful?",
+            "How do you reduce stress in your life?",
+            "How do you help your family and friends to recover stress?",
+            "Is life in general becoming more or less stressful?",
+            "How dangerous stress is?",
+            "Can stress be useful?",
+            "What would life be like without any stress?",
+            "What is success?",
+            "Who is the most successful person?",
+            "Do you like reading or watching stories of success?",
+            "Are successful people happier than others?",
+            "How do you measure success?",
+            "Which does success mostly depend on: luck or hard-working?",
+            "What are the advantages of being successful?",
+            "What are the disadvantages of being successful?",
+            "How important success for you?",
+            "How successful are you compared with your friends?",
+            "Can you remember you first success?",
+            "Can you tell about the biggest success in your life?",
+            "Can you tell about your last success?",
+            "How often do you feel successful?",
+            "Can you feel successful within you, without recognizing by others?",
+            "Do you usually notice small successes you have every day?",
+            "Is it possible to teach success?",
+            "What would life be like if we didn’t recognize success?",
+            "Why do we need to work?",
+            "What job did you dream of in your childhood?",
+            "Did you choose your current job by economic necessity?",
+            "What do you like about your present job?",
+            "What do you dislike about your present job?",
+            "What your working conditions would you like to change?",
+            "Are you looking forward to your retirement?",
+            "Do you ever imagine being someone else?",
+            "What is the most exciting job?",
+            "What is the most boring job?",
+            "Are some jobs overpaid?",
+            "Is it better to be a boss or a subordinate?",
+            "Do you know any workaholic?",
+            "Who are better workers: men or women?",
+            "Is housework a real work?",
+            "Who is more responsible for employment: a government or a person?",
+            "If you had a huge amount of money, would you still work?",
+            "What would life be like if we did not have to work?",
+            "How has the Internet changed society?",
+            "When did you first use the Internet?",
+            "How can the Internet be improved?",
+            "Do you think our lives have been improved by the Internet?",
+            "Do you have any ideas or ambitions to start an Internet company?",
+            "What problems does the Internet create? What problems does it solve?",
+            "Do you think that it is important for schools to have Internet access? Why?",
+            "Can you believe all the information that is published (available) on the Internet?",
+            "Do you think that the Internet will replace Libraries?",
+            "What is Copyright? How do we break Copyright law on the Internet?",
+            "Many Universities are now offering online courses. Is it a good or bad thing?",
+            "Do you think that the Internet usage is an anti-social activity?",
+            "How can we stop students from «cutting and pasting» from the Internet when they do their assignments?",
+            "How can the Internet help you learn English? Do you take advantage of this?",
+            "What springs to mind when you hear the word ‘information’?",
+            "What’s the difference between information and knowledge?",
+            "Do you think we get too much information every day?",
+            "How much useless information do you think you’ve learned?",
+            "Is it important to know a lot of information in today’s world?",
+            "Do you have more information than your grandparents?",
+            "What topics would you like to know more information about?",
+            "What do you think ‘information economics’ is?",
+            "What is the information superhighway and why is it important?",
+            "Are you happy to be living in the ‘Information Age’?",
+            "Is there freedom of information in your country?",
+            "What personal information about you should be confidential?",
+            "What has the Internet done for information?",
+            "What kind of information is dangerous in the wrong hands?",
+            "What do you think is interesting about your culture?",
+            "When people from other countries think about your culture, what do they usually think of?",
+            "What has surprised you when you've met people from other countries?",
+            "What do you like about your culture?What don't you like about your culture?",
+            "How do young people in your culture behave differently from older people?",
+            "Are there many people of different cultures in your country? Are you friends with any?",
+            "Have you ever felt confused by the actions of someone from another culture?",
+            "Who in your culture do you admire most?",
+            "What is in your culture that you most proud about? Why do you think culture is important?",
+            "If you could change one thing about your culture, what would it be?",
+            "Would you ever consider marrying or dating someone from another culture?",
+            "Would you ever consider living permanently in a country other than your home country? Why or why not?",
+            "What do people do at the beach?",
+            "When was the last time you went to the beach?",
+            "Have you ever been night-swimming?",
+            "Do you like to suntan? Do you think sunblock is important?",
+            "Have you ever played sports on the beach? Which sports have you played?",
+            "Have you ever collected seashells? 7. What did you do with the shells that you collected?",
+            "Have you ever been fishing on the beach?",
+            "How do you keep your wallet safe while you are swimming?",
+            "Why do so many people want to live on beachfront land?",
+            "What are some dangers of living on beachfront property?",
+            "Do you prefer a calm sea or do you prefer big waves?",
+            "Are there life guards at the beaches in your country?",
+            "What is happiness for you? Are you a happy person?",
+            "What do you think is the color for happiness?",
+            "Do you think that happiness lies within you? Or does it depend upon other people and external things?",
+            "Can money buy happiness?",
+            "Is happiness a state of mind?",
+            "What makes you feel happy?",
+            "What are the three most important things for you to be happy?",
+            "Are single people happy?",
+            "Would you be happier with a soul mate or single?",
+            "Does having an animal/pet make you happy?",
+            "What is the effect that animals/pets have on people to make them feel happy?",
+            "What makes you happy?",
+            "When was the happiest time of your childhood?",
+            "Can you be happy if you are rich / poor?",
+            "How can you become happy again when you are sad?",
+            "Is happiness a goal?",
+            "How often do you feel really happy?",
+            "Are the people in your country generally very happy?",
+            "Are you very happy most of the time?",
+            "What makes you unhappy?",
+            "How happy are you compared with your friends?",
+            "Do you wake up happy every morning?",
+            "Do you agree that older people are less happy?",
+            "Does your happiness change during different times of the day, week, month or year?",
+            "What is or was the happiest time of your life?",
+            "Do you need money to be happy?",
+            "Do you think some nations are happier than others?",
+            "What is missing in your life that would make you very happy?",
+            "Why are teenagers some of the happiest people in the world?",
+            "Do you think it is a waste of money to explore space?",
+            "Do you think that there is life on other planets?",
+            "How many planets are there in our galaxy? Can you put the names of the planets in order?",
+            "If you had the chance to go into space, would you take it?",
+            "Do you think that one day a human being will walk on Mars?",
+            "Do you or anyone in your family remember the Moon landing?",
+            "Some people say that the Moon landing was a hoax. What do you think?",
+            "Do you think that Earth has been visited by extraterrestrials?",
+            "Do you like movies about space and astronauts? What is your favorite one?"
+        ];
+
+        function changeQuestion() {
+            question.innerText = list[activeIndex];
+            document.querySelector('.js-current').innerText = activeIndex + 1;
+        }
+
+        document.querySelector('.js-count').innerText = list.length;
+
+        document.querySelector('.js-random').addEventListener('click', function() {
+            activeIndex = Math.round(Math.random() * (list.length - 1));
+            changeQuestion();
+        });
+
+        document.querySelector('.js-prev').addEventListener('click', function() {
+            activeIndex--;
+            if (activeIndex < 0) {
+                activeIndex = list.length - 1;
+            }
+            changeQuestion();
+        });
+
+        document.querySelector('.js-next').addEventListener('click', function() {
+            activeIndex++;
+            if (activeIndex >= list.length) {
+                activeIndex = 0;
+            }
+            changeQuestion();
+        });
+    </script>
+</body>
+</html>
