@@ -29,6 +29,7 @@
       }
       .content {
         min-height: 100vh;
+        min-height: calc(var(--vh, 1vh) * 100);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -103,6 +104,14 @@
     </div>
 
     <script>
+      var vh = window.innerHeight * 0.01
+      document.documentElement.style.setProperty('--vh', `${vh}px`)
+
+      window.addEventListener('resize', () => {
+        var newVh = window.innerHeight * 0.01
+        document.documentElement.style.setProperty('--vh', `${newVh}px`)
+      })
+
       var question = document.querySelector('.js-question')
       var activeIndex = 0
       var animating = false
@@ -814,13 +823,12 @@
         changeQuestion()
       })
 
-      document.addEventListener(
-        'DOMContentLoaded',
+      document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
           activeIndex = Math.round(Math.random() * (list.length - 1))
           changeQuestion()
-        }, 800),
-      )
+        }, 800)
+      })
     </script>
   </body>
 </html>
