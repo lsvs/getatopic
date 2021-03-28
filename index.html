@@ -27,7 +27,7 @@
         -webkit-user-select: none;
         -moz-user-select: none;
       }
-      .content {
+      .container {
         min-height: 100vh;
         min-height: calc(var(--vh, 1vh) * 100);
         display: flex;
@@ -36,7 +36,7 @@
         text-align: center;
         cursor: pointer;
       }
-      .question {
+      .topic {
         width: 75vw;
         font-size: 6.6vw;
         font-family: 'DX Rigraf', serif;
@@ -57,27 +57,26 @@
         display: inline-flex;
         transition: transform 0.5s ease;
       }
-      .question .outter {
+      .topic .box {
         display: inline-flex;
         overflow: hidden;
       }
-      .outter .inner {
+      .box .word {
         transform: translate3d(0, 0, 0);
         opacity: 1;
         transition: transform 0.5s ease, opacity 0.5s ease;
         display: inline-flex;
       }
-      .preload .outter .inner {
+      .animating .word {
         transform: translate3d(0, 200%, 0) rotate(15deg);
       }
-
       .js-random:active .click {
         transform: scale(0.8);
         transition-duration: 0.1s;
       }
 
       @media (max-width: 767px) {
-        .question {
+        .topic {
           width: 90vw;
           font-size: 12vw;
         }
@@ -89,13 +88,13 @@
   </head>
 
   <body>
-    <div class="content js-random">
-      <div class="question js-question">
-        <span class="outter">
-          <span class="inner" style="line-height: 1.25em; transition-delay: 0.2s">Hi</span>
+    <div class="container js-random">
+      <div class="topic js-topic">
+        <span class="box">
+          <span class="word" style="line-height: 1.25em; transition-delay: 0.2s">Hi</span>
         </span>
-        <span class="outter">
-          <span class="inner" style="line-height: 1.25em; transition-delay: 0.25s">✌️</span>
+        <span class="box">
+          <span class="word" style="line-height: 1.25em; transition-delay: 0.25s">✌️</span>
         </span>
       </div>
       <div class="helper">
@@ -106,16 +105,15 @@
     <script>
       var vh = window.innerHeight * 0.01
       document.documentElement.style.setProperty('--vh', `${vh}px`)
-
-      window.addEventListener('resize', () => {
+      window.addEventListener('resize', function () {
         var newVh = window.innerHeight * 0.01
         document.documentElement.style.setProperty('--vh', `${newVh}px`)
       })
 
-      var question = document.querySelector('.js-question')
-      var activeIndex = 0
-      var animating = false
-      var list = [
+      var topicNode = document.querySelector('.js-topic')
+      var topicIndex = 0
+      var isAnimating = false
+      var topics = [
         // Age
         'How are you doing?',
         'How do you usually feel on your birthday?',
@@ -790,43 +788,43 @@
         'If you could go anywhere in the world, where would you go?',
       ]
 
-      function changeQuestion() {
-        question.classList.add('preload')
-        animating = true
+      function getATopic() {
+        topicIndex = Math.round(Math.random() * (topics.length - 1))
+
+        topicNode.classList.add('animating')
+        isAnimating = true
 
         setTimeout(function () {
-          question.innerHTML = ''
-          var words = list[activeIndex].split(' ')
+          topicNode.innerHTML = ''
+          var words = topics[topicIndex].split(' ')
           words.forEach(function (word, i) {
-            var outter = document.createElement('span')
-            outter.className = 'outter'
-            var inner = document.createElement('span')
-            inner.className = 'inner'
+            var boxNode = document.createElement('span')
+            boxNode.className = 'box'
+            var wordNode = document.createElement('span')
+            wordNode.className = 'word'
             var space = document.createTextNode(' ')
-            inner.innerText = word
-            inner.style.transitionDelay = i / words.length / 4 + 's'
-            outter.appendChild(inner)
-            question.append(outter, ' ')
+            wordNode.innerText = word
+            wordNode.style.transitionDelay = i / words.length / 4 + 's'
+            boxNode.appendChild(wordNode)
+            topicNode.append(boxNode, ' ')
           })
           setTimeout(function () {
-            question.classList.remove('preload')
-            animating = false
+            topicNode.classList.remove('animating')
+            isAnimating = false
           }, 50)
         }, 500)
       }
 
       document.querySelector('.js-random').addEventListener('click', function () {
-        if (animating) {
+        if (isAnimating) {
           return
         }
-        activeIndex = Math.round(Math.random() * (list.length - 1))
-        changeQuestion()
+        getATopic()
       })
 
       document.addEventListener('DOMContentLoaded', function () {
         setTimeout(function () {
-          activeIndex = Math.round(Math.random() * (list.length - 1))
-          changeQuestion()
+          getATopic()
         }, 800)
       })
     </script>
