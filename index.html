@@ -51,8 +51,28 @@
         bottom: 4vh;
         left: 5vw;
         width: 90vw;
-        color: #eee;
-        mix-blend-mode: difference;
+      }
+      .click {
+        display: inline-flex;
+        transition: transform 0.5s ease;
+      }
+      .question .outter {
+        display: inline-flex;
+        overflow: hidden;
+      }
+      .outter .inner {
+        transform: translate3d(0, 0, 0);
+        opacity: 1;
+        transition: transform 0.5s ease, opacity 0.5s ease;
+        display: inline-flex;
+      }
+      .preload .outter .inner {
+        transform: translate3d(0, 200%, 0) rotate(15deg);
+      }
+
+      .js-random:active .click {
+        transform: scale(0.8);
+        transition-duration: 0.1s;
       }
 
       @media (max-width: 767px) {
@@ -69,13 +89,23 @@
 
   <body>
     <div class="content js-random">
-      <div class="question js-question"></div>
-      <div class="helper">Click everywhere for the next random topic</div>
+      <div class="question js-question">
+        <span class="outter">
+          <span class="inner" style="line-height: 1.25em; transition-delay: 0.2s">Hi</span>
+        </span>
+        <span class="outter">
+          <span class="inner" style="line-height: 1.25em; transition-delay: 0.25s">✌️</span>
+        </span>
+      </div>
+      <div class="helper">
+        <span class="click">Click</span> everywhere for the next random topic
+      </div>
     </div>
 
     <script>
       var question = document.querySelector('.js-question')
       var activeIndex = 0
+      var animating = false
       var list = [
         // Age
         'How are you doing?',
@@ -752,16 +782,45 @@
       ]
 
       function changeQuestion() {
-        question.innerText = list[activeIndex]
+        question.classList.add('preload')
+        animating = true
+
+        setTimeout(function () {
+          question.innerHTML = ''
+          var words = list[activeIndex].split(' ')
+          words.forEach(function (word, i) {
+            var outter = document.createElement('span')
+            outter.className = 'outter'
+            var inner = document.createElement('span')
+            inner.className = 'inner'
+            var space = document.createTextNode(' ')
+            inner.innerText = word
+            inner.style.transitionDelay = i / words.length / 4 + 's'
+            outter.appendChild(inner)
+            question.append(outter, ' ')
+          })
+          setTimeout(function () {
+            question.classList.remove('preload')
+            animating = false
+          }, 50)
+        }, 500)
       }
 
       document.querySelector('.js-random').addEventListener('click', function () {
+        if (animating) {
+          return
+        }
         activeIndex = Math.round(Math.random() * (list.length - 1))
         changeQuestion()
       })
 
-      activeIndex = Math.round(Math.random() * (list.length - 1))
-      changeQuestion()
+      document.addEventListener(
+        'DOMContentLoaded',
+        setTimeout(function () {
+          activeIndex = Math.round(Math.random() * (list.length - 1))
+          changeQuestion()
+        }, 800),
+      )
     </script>
   </body>
 </html>
