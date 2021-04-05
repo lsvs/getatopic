@@ -32,13 +32,14 @@
             }
 
             .container {
-                min-height: 100vh;
-                min-height: calc(var(--vh, 1vh) * 100);
+                height: 100vh;
+                height: calc(var(--vh, 1vh) * 100);
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 text-align: center;
                 cursor: pointer;
+                -webkit-tap-highlight-color: transparent;
             }
 
             .topic {
@@ -811,25 +812,17 @@
                     topicNode.classList.add('_is-animated');
                     isAnimated = true;
 
-                    // Add animation
+                    // Add the new words with animation
                     setTimeout(function () {
-                        topicNode.innerHTML = '';
-
                         var words = topics[topicIndex].split(' ');
+                        var newHtml = '';
 
-                        // Divide the sentence into separate animated words
                         words.forEach(function (word, i) {
-                            var wordNode = document.createElement('span');
-                            wordNode.className = 'word';
-                            wordNode.innerText = word;
-                            wordNode.style.transitionDelay = i / words.length / 4 + 's';
-
-                            var boxNode = document.createElement('span');
-                            boxNode.className = 'box';
-                            boxNode.appendChild(wordNode);
-
-                            topicNode.append(boxNode, ' ');
+                            var style = 'transition-delay: ' + i / words.length / 4 + 's';
+                            newHtml += '<span class="box"><span class="word" style="' + style + '">' + word + '</span></span><span> </span>';
                         });
+
+                        topicNode.innerHTML = newHtml;
 
                         setTimeout(function () {
                             topicNode.classList.remove('_is-animated');
@@ -862,11 +855,11 @@
              */
             (function () {
                 var vh = window.innerHeight * 0.01;
-                document.documentElement.style.setProperty('--vh', `${vh}px`);
+                document.documentElement.style.setProperty('--vh', vh + 'px');
 
                 window.addEventListener('resize', function () {
                     var newVh = window.innerHeight * 0.01;
-                    document.documentElement.style.setProperty('--vh', `${newVh}px`);
+                    document.documentElement.style.setProperty('--vh', newVh + 'px');
                 });
             })();
         </script>
