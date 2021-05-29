@@ -1,0 +1,9 @@
+# Поддерживаемые браузеры (для Autoprefixer и Babel)
+
+chrome >= 87
+ff >= 83
+safari >= 13
+edge >= 87
+android >= 7
+ios >= 14.0
+ie 11
