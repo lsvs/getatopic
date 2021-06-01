@@ -16,6 +16,19 @@ body {
     -webkit-text-size-adjust: 100%;
 }
 
+.hi {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 6.5vw;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    padding-bottom: 0.66em;
+}
+
 .text {
     font-family: sans-serif;
     font-size: 13px;
@@ -28,6 +41,7 @@ body {
     right: 0;
     display: flex;
     padding: 1vh;
+    z-index: 2;
 }
 
 .menu::after {
@@ -227,6 +241,15 @@ span.mask {
     .topic {
         width: 90vw;
         font-size: 8vw;
+    }
+
+    .taboo {
+        width: 90vw;
+        font-size: 12vw;
+    }
+
+    .hi {
+        font-size: 12vw;
     }
 
     .helper {
