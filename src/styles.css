@@ -44,6 +44,31 @@ body {
     z-index: 2;
 }
 
+.menu > button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 70px;
+    box-sizing: border-box;
+    background: transparent;
+    z-index: 1;
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+}
+
+.menu > button span {
+    position: absolute;
+    overflow: hidden;
+    margin: -1px;
+    width: 1px;
+    height: 1px;
+    top: 0;
+    left: 0;
+    clip: rect(0 0 0 0);
+}
+
 .menu::after {
     content: "•••";
     display: block;
@@ -54,7 +79,8 @@ body {
     align-items: center;
 }
 
-.menu:hover a {
+.menu:hover a,
+.menu:focus-within a {
     opacity: 1;
     visibility: visible;
     transform: translate3d(0, 0, 0);
@@ -63,17 +89,33 @@ body {
 .menu a {
     color: #111;
     padding: 3vh 1.5vh;
-    background-color: #fff;
     transition: transform 0.3s ease-out, opacity 0.3s ease, visibility 0.3s ease;
     opacity: 0;
     visibility: hidden;
     transform: translate3d(10px, 0, 0);
     text-decoration: none;
     position: relative;
+    z-index: 2;
+}
+
+.menu a:focus {
+    z-index: 3;
 }
 
 .menu a:nth-child(2) {
     transition-delay: 0.05s;
+}
+
+.menu a::before {
+    content: "";
+    position: absolute;
+    bottom: 2vh;
+    left: 0;
+    right: 0;
+    top: 2vh;
+    background-color: #fff;
+    border-radius: 100px;
+    z-index: -1;
 }
 
 .menu a::after {
@@ -134,6 +176,21 @@ body {
     display: inline-block;
     position: relative;
     transform: scale(1);
+}
+
+.helper button {
+    display: inline;
+    white-space: nowrap;
+    background: transparent;
+    border: 0;
+    padding: 0;
+    font-family: inherit;
+    text-transform: uppercase;
+    font-size: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    cursor: pointer;
+    -webkit-appearance: none;
 }
 
 .click {
