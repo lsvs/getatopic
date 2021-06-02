@@ -44,6 +44,31 @@ body {
     z-index: 2;
 }
 
+.menu > button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 70px;
+    box-sizing: border-box;
+    background: transparent;
+    z-index: 1;
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+}
+
+.menu > button span {
+    position: absolute;
+	overflow: hidden;
+	margin: -1px;
+	width: 1px;
+    height: 1px;
+    top: 0;
+    left: 0;
+	clip: rect(0 0 0 0);
+}
+
 .menu::after {
     content: "•••";
     display: block;
@@ -71,13 +96,11 @@ body {
     transform: translate3d(10px, 0, 0);
     text-decoration: none;
     position: relative;
+    z-index: 2;
 }
 
-.menu div {
-    width: 20px;
-    height: 20px;
-    background: yellow;
-    cursor: pointer;
+.menu a:focus {
+    z-index: 3;
 }
 
 .menu a:nth-child(2) {
