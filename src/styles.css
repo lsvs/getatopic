@@ -60,13 +60,13 @@ body {
 
 .menu > button span {
     position: absolute;
-	overflow: hidden;
-	margin: -1px;
-	width: 1px;
+    overflow: hidden;
+    margin: -1px;
+    width: 1px;
     height: 1px;
     top: 0;
     left: 0;
-	clip: rect(0 0 0 0);
+    clip: rect(0 0 0 0);
 }
 
 .menu::after {
@@ -89,7 +89,6 @@ body {
 .menu a {
     color: #111;
     padding: 3vh 1.5vh;
-    background-color: #fff;
     transition: transform 0.3s ease-out, opacity 0.3s ease, visibility 0.3s ease;
     opacity: 0;
     visibility: hidden;
@@ -105,6 +104,18 @@ body {
 
 .menu a:nth-child(2) {
     transition-delay: 0.05s;
+}
+
+.menu a::before {
+    content: "";
+    position: absolute;
+    bottom: 2vh;
+    left: 0;
+    right: 0;
+    top: 2vh;
+    background-color: #fff;
+    border-radius: 100px;
+    z-index: -1;
 }
 
 .menu a::after {
