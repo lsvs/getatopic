@@ -35,6 +35,11 @@ body {
     text-transform: uppercase;
 }
 
+.accent {
+    font-family: "Sporting Grotesque", serif;
+    font-size: 16px;
+}
+
 .menu {
     position: fixed;
     top: 0;
@@ -58,6 +63,10 @@ body {
     padding: 0;
 }
 
+.menu:hover > button {
+    transform: scale(0);
+}
+
 .menu > button span {
     position: absolute;
     overflow: hidden;
@@ -72,11 +81,16 @@ body {
 .menu::after {
     content: "•••";
     display: block;
-    padding: 0 3vh 0 1.5vh;
+    padding: 3vh;
     font-size: 20px;
     cursor: pointer;
     display: flex;
     align-items: center;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.menu:hover::after {
+    transform: scale(0);
+    opacity: 0;
 }
 
 .menu:hover a,
@@ -88,14 +102,24 @@ body {
 
 .menu a {
     color: #111;
-    padding: 3vh 1.5vh;
-    transition: transform 0.3s ease-out, opacity 0.3s ease, visibility 0.3s ease;
+    padding: 10px;
+    transition: transform 0.3s ease, opacity 0.3s ease, visibility 0.3s ease,
+        color 0.3s ease;
     opacity: 0;
     visibility: hidden;
-    transform: translate3d(10px, 0, 0);
+    transform: translate3d(0, -10px, 0);
     text-decoration: none;
     position: relative;
     z-index: 2;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 100px;
+    border: 2px solid #fff;
+    line-height: 14px;
+}
+
+.menu a.accent {
+    padding: 14px 12px 10px 12px;
 }
 
 .menu a:focus {
@@ -105,41 +129,65 @@ body {
 .menu a:nth-child(2) {
     transition-delay: 0.05s;
 }
+.menu a:nth-child(3) {
+    transition-delay: 0.1s;
+}
+.menu a:nth-child(4) {
+    transition-delay: 0.15s;
+}
+.menu a:nth-child(5) {
+    transition-delay: 0.2s;
+}
 
 .menu a::before {
     content: "";
     position: absolute;
-    bottom: 2vh;
+    bottom: 0;
     left: 0;
     right: 0;
-    top: 2vh;
-    background-color: #fff;
-    border-radius: 100px;
-    z-index: -1;
-}
-
-.menu a::after {
-    content: "";
-    position: absolute;
-    bottom: 2vh;
-    left: 0;
-    right: 0;
-    top: 2vh;
+    top: 0;
     background-color: #111;
-    opacity: 0;
     transition: transform 0.3s ease, opacity 0.3s ease;
-    transform: scale(0.9);
-    border-radius: 100px;
+    transform: scaleY(0);
+    z-index: -1;
+    transform-origin: bottom;
 }
 
-.menu a:hover {
-    transition: transform 0.3s ease-in, opacity 0.3s ease, visibility 0.3s ease;
+.menu a:hover::before,
+.menu a.active::before {
+    transform: scaleY(1);
+    opacity: 1;
+    transform-origin: top;
+}
+.menu a:hover,
+.menu a.active {
+    color: #fff;
+    transition-delay: 0s !important;
 }
 
-.menu a:hover::after,
-.menu a.active::after {
+.menu__block {
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 2vh;
+    right: 2vh;
+    padding: 2vh;
+    width: 220px;
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.75);
+    transform-origin: 90% 10%;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    background-color: #fff;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    border: 1px solid #111;
+}
+
+.menu:hover .menu__block {
+    opacity: 1;
+    visibility: visible;
     transform: scale(1);
-    opacity: 0.05;
 }
 
 .container {
@@ -309,7 +357,16 @@ span.mask {
         font-size: 12vw;
     }
 
-    .helper {
+    .helper,
+    .text {
         font-size: 11px;
+    }
+
+    .accent {
+        font-size: 14px;
+    }
+
+    .menu__block {
+        width: 190px;
     }
 }
