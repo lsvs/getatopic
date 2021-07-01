@@ -107,7 +107,7 @@ body {
         color 0.3s ease;
     opacity: 0;
     visibility: hidden;
-    transform: translate3d(0, -10px, 0);
+    transform: translate3d(10px, 0, 0);
     text-decoration: none;
     position: relative;
     z-index: 2;
@@ -115,11 +115,10 @@ body {
     overflow: hidden;
     border-radius: 100px;
     border: 2px solid #fff;
-    line-height: 14px;
 }
 
 .menu a.accent {
-    padding: 14px 12px 10px 12px;
+    padding: 12px 10px 8px 10px;
 }
 
 .menu a:focus {
@@ -146,23 +145,20 @@ body {
     left: 0;
     right: 0;
     top: 0;
-    background-color: #111;
+    background-color: #f2f0ee;
     transition: transform 0.3s ease, opacity 0.3s ease;
-    transform: scaleY(0);
+    transform: scaleY(0) translateZ(0);
     z-index: -1;
+    opacity: 0;
     transform-origin: bottom;
 }
 
 .menu a:hover::before,
 .menu a.active::before {
-    transform: scaleY(1);
+    transform: scaleY(1) translateZ(0);
     opacity: 1;
     transform-origin: top;
-}
-.menu a:hover,
-.menu a.active {
-    color: #fff;
-    transition-delay: 0s !important;
+    opacity: 1;
 }
 
 .menu__block {
