@@ -67,6 +67,7 @@ body {
 
 .menu:hover > button {
     transform: scale(0);
+    opacity: 0;
 }
 
 .menu > button span {
@@ -90,7 +91,8 @@ body {
     align-items: center;
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
-.menu:hover::after {
+.menu:hover::after,
+.menu:focus-within::after {
     transform: scale(0);
     opacity: 0;
 }
@@ -175,6 +177,7 @@ body {
     display: flex;
     flex-direction: column;
     position: absolute;
+    z-index: 2;
     top: 2vh;
     right: 2vh;
     padding: 2vh;
@@ -190,7 +193,8 @@ body {
     align-items: center;
 }
 
-.menu:hover .menu__block {
+.menu:hover .menu__block,
+.menu:focus-within .menu__block {
     opacity: 1;
     visibility: visible;
     transform: scale(1);
