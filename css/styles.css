@@ -9,11 +9,13 @@ body {
     padding: 0;
     color: #111;
     background: #fff;
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
     -webkit-font-smoothing: antialiased;
     -webkit-text-size-adjust: 100%;
+}
+
+::selection {
+    color: #fff;
+    background: #111;
 }
 
 .hi {
@@ -49,6 +51,9 @@ body {
     display: flex;
     padding: 1vh;
     z-index: 2;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .menu > button {
@@ -208,6 +213,9 @@ body {
     text-align: center;
     cursor: pointer;
     -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
 }
 
 .aic {
@@ -354,12 +362,15 @@ span.mask {
 
 /* about */
 
-.about__body {
+.about {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 15vh 0 3vh 0;
+    user-select: auto;
+    -webkit-user-select: auto;
+    -moz-user-select: auto;
 }
 .grid_3 {
     display: grid;
