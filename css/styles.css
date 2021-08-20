@@ -42,6 +42,7 @@ body {
     font-size: 2vw;
     letter-spacing: -0.02em;
     line-height: 1;
+    font-feature-settings: "liga" 1;
 }
 
 .menu {
@@ -228,6 +229,7 @@ body {
     font-family: "Sporting Grotesque", serif;
     line-height: 1.15em;
     letter-spacing: -0.02em;
+    font-feature-settings: "liga" 1;
 }
 
 .helper {
@@ -296,6 +298,7 @@ span.mask {
     line-height: 1.15em;
     letter-spacing: -0.02em;
     margin-top: 1em;
+    font-feature-settings: "liga" 1;
 }
 
 .card__word {
@@ -458,6 +461,7 @@ span.mask {
     font-family: "Sporting Grotesque", serif;
     line-height: 1.15em;
     letter-spacing: -0.02em;
+    font-feature-settings: "liga" 1;
 }
 
 @media (max-width: 767px) {
@@ -515,8 +519,7 @@ span.mask {
 }
 
 /* IE11 bugfix */
-@media all and (-ms-high-contrast:none) {
-
+@media all and (-ms-high-contrast: none) {
     .menu:after {
         content: none;
     }
@@ -534,7 +537,7 @@ span.mask {
         opacity: 1;
         visibility: visible;
         transform: scale(1);
-        background: rgba(255,255,255,0.5);
+        background: rgba(255, 255, 255, 0.5);
         border: 0;
     }
 
