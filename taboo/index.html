@@ -1,64 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
-        <title>Taboo — Get a topic</title>
-        <meta property="og:title" content="Taboo — Get a topic" />
-        <meta property="og:description" content="Word guessing game" />
-        <meta property="og:image" content="https://getatopic.com/img/og-taboo.jpg" />
-        <meta property="og:url" content="/" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="icon" type="image/png" href="/img/favicon.png" />
-        <link rel="stylesheet" href="../css/styles.css" />
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-35881577-6"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
 
-            gtag('config', 'UA-35881577-6');
-        </script>
-    </head>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taboo — Get a topic</title>
+    <meta property="og:title" content="Taboo — Get a topic" />
+    <meta property="og:description" content="Word guessing game" />
+    <meta property="og:image" content="https://getatopic.com/img/og-taboo.jpg" />
+    <meta property="og:url" content="/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/png" href="/img/favicon.png" />
+    <link rel="stylesheet" href="../css/styles.css" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-35881577-6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || []
+        function gtag() { dataLayer.push(arguments) }
+        gtag('js', new Date())
 
-    <body>
-         <nav class="menu">
-            <button>
-                <span>Open menu</span>
-            </button>
-            <div class="menu__block">
-                <a href="/" class="accent">Get a Topic</a>
-                <a href="/taboo" class="accent active">Taboo</a>
-                <a href="https://t.me/getatopic_bot" class="text" target="_blank">Telegram Bot</a>
-                <a href="/about" class="text">About</a>
-            </div>
-        </nav>
-        <div class="container js-random">
-            <div class="taboo card js-topic">
-                <div class="hi">
-                    <span class="mask">
-                        <span
-                            class="word"
-                            style="line-height: 1.25em; transition-delay: 0.2s; padding-top: .66em;"
-                            >Taboo</span
-                        >
-                    </span>&nbsp;
-                    <span class="mask" style="width: 1em; height: 1.5em;">
-                        <img class="word" src="../img/ok.png"
-                            style="transition-delay: 0.25s; width: 100%; height: 100%; display: block;" />
-                    </span>
-                </div>
-            </div>
+        gtag('config', 'UA-35881577-6');
+    </script>
+</head>
 
-            <div class="helper text">
-                <span class="click">Click</span>
-                <span>anywhere for the <button>next random word</button></span>
+<body>
+    <nav class="menu">
+        <button>
+            <span>Open menu</span>
+        </button>
+        <div class="menu__block">
+            <a href="/" class="accent">Get a Topic</a>
+            <a href="/taboo" class="accent active">Taboo</a>
+            <a href="https://t.me/getatopic_bot" class="text" target="_blank">Telegram Bot</a>
+            <a href="/about" class="text">About</a>
+        </div>
+    </nav>
+    <div class="container js-random">
+        <div class="taboo card js-topic">
+            <div class="hi">
+                <span class="mask">
+                    <span class="word"
+                        style="line-height: 1.25em; transition-delay: 0.2s; padding-top: .66em;">Taboo</span>
+                </span>&nbsp;
+                <span class="mask" style="width: 1em; height: 1.5em;">
+                    <img class="word" src="../img/ok.png"
+                        style="transition-delay: 0.25s; width: 100%; height: 100%; display: block;" />
+                </span>
             </div>
         </div>
 
-        <script src='../data/taboos.js'></script>
-        <script src='../js/taboo.js'></script>
-    </body>
+        <div class="helper text">
+            <span class="click">Click</span>
+            <span>anywhere for the <button>next random word</button></span>
+        </div>
+    </div>
+
+    <script src='../data/taboos.js'></script>
+    <script src='../js/taboo.js'></script>
+</body>
+
 </html>
